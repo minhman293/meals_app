@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:meal_app/controllers/filter_meal_controller.dart';
 import 'package:meal_app/providers/favorites_provider.dart';
 import 'package:meal_app/screens/categories_screen.dart';
 import 'package:meal_app/screens/filters_screen.dart';
 import 'package:meal_app/screens/meals_screen.dart';
 import 'package:meal_app/widgets/bottom_navigation.dart';
 import 'package:meal_app/widgets/main_drawer.dart';
-import 'package:meal_app/providers/meals_provider.dart';
 import 'package:meal_app/providers/filters_provider.dart';
 
 const kInitializeFilter = {
@@ -50,15 +48,18 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // option 1: use controller
     // example of using provider
-    final totalMeals = ref.watch(mealsProvider);
-    final selectedFilter = ref.watch(filterProvider);
+    // final totalMeals = ref.watch(mealsProvider);
+    // final selectedFilter = ref.watch(filterProvider);
+    // final filteredMeals =
+    //     FilterMealController().filterMeals(selectedFilter, totalMeals);
 
-    final filteredMeals =
-        FilterMealController().filterMeals(selectedFilter, totalMeals);
+    // option 2: use provider
+    final filterMeals = ref.watch(filterMealsProvider);
 
     Widget activePage = CategoriesScreen(
-      availableMeals: filteredMeals,
+      availableMeals: filterMeals,
     );
     var activePageTitle = 'Categories';
 
